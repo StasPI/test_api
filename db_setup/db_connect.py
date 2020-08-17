@@ -1,5 +1,7 @@
 """
 Module that implements the connection to the database.
+
+You need to provide data to access an empty database.
 """
 
 from sqlalchemy import create_engine

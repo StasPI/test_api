@@ -2,7 +2,8 @@
 Description of the model for the database of two entities: a book, an author.
 """
 
-from sqlalchemy import BigInteger, Column, ForeignKey, Integer, String
+from sqlalchemy import (BigInteger, Column, ForeignKey, Integer, SmallInteger,
+                        String)
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
@@ -19,6 +20,7 @@ class Book(Base):
     title = Column(String(300), nullable=False)
     number_of_evaluations = Column(Integer, server_default="0", nullable=False)
     summ_evaluations = Column(BigInteger, server_default="0", nullable=False)
+    rating = Column(SmallInteger, server_default="0", nullable=False)
 
     @property
     def serialize(self):
@@ -26,7 +28,8 @@ class Book(Base):
             'id': self.id,
             'title': self.title,
             'number_of_evaluations': self.number_of_evaluations,
-            'summ_evaluations': self.summ_evaluations
+            'summ_evaluations': self.summ_evaluations,
+            'rating': self.rating
         }
 
 
@@ -50,7 +53,7 @@ class Author(Base):
 
 
 class Books(Base):
-    """ consolidated implementation """
+    """ Consolidated implementation """
     __tablename__ = 'books'
 
     id = Column(BigInteger, primary_key=True)
@@ -62,7 +65,7 @@ class Books(Base):
         return {
             'id': self.id,
             'book_id': self.book_id,
-            'author_id': self.author_id
+            'author_id': self.author_id,
         }
 
 
